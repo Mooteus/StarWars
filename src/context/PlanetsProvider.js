@@ -14,7 +14,8 @@ export function PlanetsProvider({ children }) {
     const fetchPlanetsApi = async () => {
       const url = 'https://swapi-trybe.herokuapp.com/api/planets/';
       const response = await fetch(url);
-      setPlanetsData(response.json());
+      const { results } = await response.json();
+      setPlanetsData(results);
     };
 
     fetchPlanetsApi();

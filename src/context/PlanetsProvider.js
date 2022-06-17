@@ -28,7 +28,7 @@ export function PlanetsProvider({ children }) {
   useEffect(() => {
     const filterByName = () => {
       const planets = planetsData.filter(
-        ({ name }) => name.toLowerCase().includes(nameFilter),
+        ({ name }) => name.toLowerCase().includes(nameFilter.toLowerCase()),
       );
       setFilteredPlanets(planets);
     };

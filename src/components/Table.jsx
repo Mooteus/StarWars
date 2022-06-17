@@ -3,7 +3,7 @@ import { PlanetsContext } from '../context/PlanetsProvider';
 import TableRow from './TableRow';
 
 function Table() {
-  const { planetsData } = useContext(PlanetsContext);
+  const { filteredPlanets } = useContext(PlanetsContext);
   return (
     <table>
       <thead>
@@ -24,7 +24,7 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        {planetsData.map((planet) => (
+        {filteredPlanets.map((planet) => (
           <TableRow key={ planet.name } planetData={ planet } />
         ))}
       </tbody>

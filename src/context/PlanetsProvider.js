@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 
 const INITIAL_STATE = {
   planetsData: [],
+  filteredPlanets: [],
+  nameFilter: '',
 };
 
 export const PlanetsContext = createContext(INITIAL_STATE);
 
 export function PlanetsProvider({ children }) {
   const [planetsData, setPlanetsData] = useState([]);
+  const [nameFilter, setNameFilter] = useState('');
+  const [filteredPlanets, setFilteredPlanets] = useState([]);
 
   useEffect(() => {
     const fetchPlanetsApi = async () => {
@@ -21,7 +25,17 @@ export function PlanetsProvider({ children }) {
     fetchPlanetsApi();
   }, []);
 
-  const value = { planetsData };
+  useEffect(() => {
+    const filterByName = () => {
+      const planets = planetsData.filter(
+        ({ name }) => name.toLowerCase().includes(nameFilter),
+      );
+      setFilteredPlanets(planets);
+    };
+    filterByName();
+  }, [nameFilter, planetsData]);
+
+  const value = { filteredPlanets, setNameFilter };
 
   return (
     <PlanetsContext.Provider value={ value }>

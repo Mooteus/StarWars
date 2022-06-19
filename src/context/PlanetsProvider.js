@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   filteredPlanets: [],
   nameFilter: '',
   filters: [],
+  columnFilterOptions: [],
 };
 
 export const PlanetsContext = createContext(INITIAL_STATE);
@@ -17,12 +18,19 @@ export function PlanetsProvider({ children }) {
   const [nameFilter, setNameFilter] = useState('');
   const [filteredPlanets, setFilteredPlanets] = useState([]);
   const [filters, setFilters] = useState([]);
+  const [columnFilterOptions, setColumnFilterOptions] = useState([]);
 
   useEffect(() => {
     const fetchPlanetsApi = async () => {
       const planets = await FetchPlanets();
-      console.log(planets);
       setPlanetsData(planets);
+      setColumnFilterOptions([
+        'population',
+        'orbital_period',
+        'diameter',
+        'rotation_period',
+        'surface_water',
+      ]);
     };
 
     fetchPlanetsApi();
@@ -40,7 +48,6 @@ export function PlanetsProvider({ children }) {
 
   useEffect(() => {
     const filterTable = () => {
-      console.log(filters);
       filters.map(({ column, comparison, value }) => {
         switch (comparison) {
         case 'maior que':
@@ -61,7 +68,13 @@ export function PlanetsProvider({ children }) {
     filterTable();
   }, [filters]);
 
-  const value = { filteredPlanets, setNameFilter, filters, setFilters };
+  const value = {
+    filteredPlanets,
+    setNameFilter,
+    filters,
+    setFilters,
+    columnFilterOptions,
+    setColumnFilterOptions };
 
   return (
     <PlanetsContext.Provider value={ value }>

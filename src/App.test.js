@@ -340,7 +340,7 @@ describe('4 - Implemente múltiplos filtros numéricos', () => {
   });
 });
 
-describe.only('5 - Não utilize filtros repetidos', () => {
+describe('5 - Não utilize filtros repetidos', () => {
 
   it('Filtre por população e o remove das opções', async () => {
     await act(async () => {

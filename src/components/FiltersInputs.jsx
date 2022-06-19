@@ -33,6 +33,17 @@ function FiltersInputs() {
     removeUsedFilter();
   };
 
+  const removeAllFilters = () => {
+    setFilters([]);
+    setColumnFilterOptions([
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ]);
+  };
+
   return (
     <>
       <div>
@@ -70,6 +81,13 @@ function FiltersInputs() {
           onClick={ submitFilter }
         >
           Filtrar
+        </button>
+        <button
+          type="button"
+          onClick={ removeAllFilters }
+          data-testid="button-remove-filters"
+        >
+          Remover Filtros
         </button>
       </div>
       <div>

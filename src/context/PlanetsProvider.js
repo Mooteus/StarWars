@@ -48,20 +48,28 @@ export function PlanetsProvider({ children }) {
 
   useEffect(() => {
     const filterTable = () => {
-      filters.map(({ column, comparison, value }) => {
+      let planets = planetsData;
+      if (filters.length < 1) return setFilteredPlanets(planetsData);
+
+      filters.forEach(({ column, comparison, value }) => {
         switch (comparison) {
         case 'maior que':
-          return setFilteredPlanets(filteredPlanets
-            .filter((planet) => parseInt(planet[column], 10) > parseInt(value, 10)));
+          planets = planets
+            .filter((planet) => parseInt(planet[column], 10) > parseInt(value, 10));
+          break;
         case 'menor que':
-          return setFilteredPlanets(filteredPlanets
-            .filter((planet) => parseInt(planet[column], 10) < parseInt(value, 10)));
+          planets = planets
+            .filter((planet) => parseInt(planet[column], 10) < parseInt(value, 10));
+          break;
         case 'igual a':
-          return setFilteredPlanets(filteredPlanets
-            .filter((planet) => parseInt(planet[column], 10) === parseInt(value, 10)));
+          planets = planets
+            .filter((planet) => parseInt(planet[column], 10) === parseInt(value, 10));
+          break;
         default:
-          return comparison;
+          return false;
         }
+
+        setFilteredPlanets(planets);
       });
     };
 

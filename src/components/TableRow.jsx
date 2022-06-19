@@ -19,7 +19,7 @@ function TableRow({ planetData }) {
   } = planetData;
 
   return (
-    <tr key={ name }>
+    <tr>
       <td>{name}</td>
       <td>{rotationPeriod}</td>
       <td>{orbitalPeriod}</td>
